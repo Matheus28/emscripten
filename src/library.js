@@ -3600,6 +3600,7 @@ LibraryManager.library = {
 #endif
   },
 
+  emscripten_console_log__sig: 'vi',
   emscripten_console_log: function(str) {
 #if ASSERTIONS
     assert(typeof str === 'number');
@@ -3607,6 +3608,7 @@ LibraryManager.library = {
     out(UTF8ToString(str));
   },
 
+  emscripten_console_warn__sig: 'vi',
   emscripten_console_warn: function(str) {
 #if ASSERTIONS
     assert(typeof str === 'number');
@@ -3614,6 +3616,7 @@ LibraryManager.library = {
     console.warn(UTF8ToString(str));
   },
 
+  emscripten_console_error__sig: 'vi',
   emscripten_console_error: function(str) {
 #if ASSERTIONS
     assert(typeof str === 'number');
