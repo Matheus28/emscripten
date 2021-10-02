@@ -942,26 +942,26 @@ var SyscallsLibrary = {
   __syscall_mmap2: function(addr, len, prot, flags, fd, off) {
     return syscallMmap2(addr, len, prot, flags, fd, off);
   },
-  __syscall_truncate: function(path, zero, low, high) {
+  __syscall_truncate64: function(path, zero, low, high) {
     path = SYSCALLS.getStr(path);
     var length = SYSCALLS.get64(low, high);
     FS.truncate(path, length);
     return 0;
   },
-  __syscall_ftruncate: function(fd, zero, low, high) {
+  __syscall_ftruncate64: function(fd, zero, low, high) {
     var length = SYSCALLS.get64(low, high);
     FS.ftruncate(fd, length);
     return 0;
   },
-  __syscall_stat: function(path, buf) {
+  __syscall_stat64: function(path, buf) {
     path = SYSCALLS.getStr(path);
     return SYSCALLS.doStat(FS.stat, path, buf);
   },
-  __syscall_lstat: function(path, buf) {
+  __syscall_lstat64: function(path, buf) {
     path = SYSCALLS.getStr(path);
     return SYSCALLS.doStat(FS.lstat, path, buf);
   },
-  __syscall_fstat: function(fd, buf) {
+  __syscall_fstat64: function(fd, buf) {
     var stream = SYSCALLS.getStreamFromFD(fd);
     return SYSCALLS.doStat(FS.stat, stream.path, buf);
   },
@@ -1055,8 +1055,8 @@ var SyscallsLibrary = {
     FS.llseek(stream, idx * struct_size, {{{ cDefine('SEEK_SET') }}});
     return pos;
   },
-  __syscall_fcntl__deps: ['$setErrNo'],
-  __syscall_fcntl: function(fd, cmd, varargs) {
+  __syscall_fcntl64__deps: ['$setErrNo'],
+  __syscall_fcntl64: function(fd, cmd, varargs) {
 #if SYSCALLS_REQUIRE_FILESYSTEM == 0
 #if SYSCALL_DEBUG
     err('no-op in fcntl syscall due to SYSCALLS_REQUIRE_FILESYSTEM=0');
@@ -1183,7 +1183,7 @@ var SyscallsLibrary = {
     FS.chown(path, owner, group);
     return 0;
   },
-  __syscall_fstatat: function(dirfd, path, buf, flags) {
+  __syscall_fstatat64: function(dirfd, path, buf, flags) {
     path = SYSCALLS.getStr(path);
     var nofollow = flags & {{{ cDefine('AT_SYMLINK_NOFOLLOW') }}};
     var allowEmpty = flags & {{{ cDefine('AT_EMPTY_PATH') }}};

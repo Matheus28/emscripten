@@ -109,7 +109,6 @@ extern struct ps_strings *__ps_strings;
 #include <math.h>
 #include <wasi/api.h>
 #include <wasi/wasi-helpers.h>
-#define SANITIZER_LINUX_USES_64BIT_SYSCALLS 1
 #endif
 
 extern char **environ;
@@ -134,8 +133,6 @@ const int FUTEX_WAKE_PRIVATE = FUTEX_WAKE | FUTEX_PRIVATE_FLAG;
 // but it still needs to use 64-bit syscalls.
 #if SANITIZER_LINUX && (defined(__x86_64__) || defined(__powerpc64__) ||       \
                         SANITIZER_WORDSIZE == 64)
-# define SANITIZER_LINUX_USES_64BIT_SYSCALLS 1
-#elif SANITIZER_EMSCRIPTEN
 # define SANITIZER_LINUX_USES_64BIT_SYSCALLS 1
 #else
 # define SANITIZER_LINUX_USES_64BIT_SYSCALLS 0
@@ -273,7 +270,7 @@ uptr internal_ftruncate(fd_t fd, uptr size) {
   return res;
 }
 
-#if !SANITIZER_LINUX_USES_64BIT_SYSCALLS && SANITIZER_LINUX
+#if !SANITIZER_LINUX_USES_64BIT_SYSCALLS && SANITIZER_LINUX || SANITIZER_EMSCRIPTEN
 static void stat64_to_stat(struct stat64 *in, struct stat *out) {
   internal_memset(out, 0, sizeof(*out));
   out->st_dev = in->st_dev;

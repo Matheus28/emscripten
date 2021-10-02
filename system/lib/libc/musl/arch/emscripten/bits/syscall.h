@@ -57,11 +57,11 @@
 #define SYS_getcwd getcwd
 #define SYS_ugetrlimit ugetrlimit
 #define SYS_mmap2 mmap2
-#define SYS_truncate truncate
-#define SYS_ftruncate ftruncate
-#define SYS_stat stat
-#define SYS_lstat lstat
-#define SYS_fstat fstat
+#define SYS_truncate64 truncate64
+#define SYS_ftruncate64 ftruncate64
+#define SYS_stat64 stat64
+#define SYS_lstat64 lstat64
+#define SYS_fstat64 fstat64
 #define SYS_lchown32 lchown32
 #define SYS_getuid32 getuid32
 #define SYS_getgid32 getgid32
@@ -76,7 +76,7 @@
 #define SYS_madvise madvise
 #define SYS_madvise1 madvise1
 #define SYS_getdents64 getdents64
-#define SYS_fcntl fcntl
+#define SYS_fcntl64 fcntl64
 #define SYS_exit_group exit_group
 #define SYS_statfs64 statfs64
 #define SYS_fstatfs64 fstatfs64
@@ -85,7 +85,7 @@
 #define SYS_mkdirat mkdirat
 #define SYS_mknodat mknodat
 #define SYS_fchownat fchownat
-#define SYS_fstatat fstatat
+#define SYS_fstatat64 fstatat64
 #define SYS_unlinkat unlinkat
 #define SYS_renameat renameat
 #define SYS_linkat linkat
